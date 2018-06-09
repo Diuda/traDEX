@@ -3,7 +3,8 @@ $(document).ready(function(){
 
     $('#loginDetails').submit(function(event){
 
-       
+      
+        event.preventDefault(); 
       
 
         var username = $('#username').val();
@@ -16,12 +17,19 @@ $(document).ready(function(){
             contentType: 'application/json',
             url: '/submit',						
             success: function(data) {
-                console.log('success');
-                console.log(JSON.stringify(data));
+
+                
+                data = JSON.parse(data);
+                if(data.redirectURL==='/customer'){
+                    console.log(data)
+                    $(location).attr('href', '/customer')
+                }
+
+                else if(data.redirectURL=='/trader')
+                $(location).attr('href', '/trader')
             }
         });
       
-          event.preventDefault();
     
     });
 

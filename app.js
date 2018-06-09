@@ -30,8 +30,44 @@ app.post('/submit',function(req,res){
   var user = req.body;
   var username = user.username;
   var password = user.password;
+
+
+  if(username.toString()==='trader'&&password.toString()==='password')
+    
+   res.end(JSON.stringify({redirectURL:'/trader',data:{},'allow':true}))
+  
+  else if(username.toString()==='customer'&&password.toString()==='password')
+   res.end(JSON.stringify({redirectURL:'/customer',data:{},'allow':true}))
+  
+  else{
+    // res.status(401);
+    // res.status(500).json({ error: 'message' })
+    return res.status(400).send({
+      message: 'This is an error!'
+   });
+    // res.sendFile(JSON.stringify({'error':'Unauthorized access' }));
+    // res.json({});
+  }
 })
 
+app.get('/trader',function(req,res){
+
+
+  
+
+  console.log('at trader')
+res.sendFile(path.join(__dirname + '/views/trader.html'))
+
+})
+
+app.get('/customer',function(req,res){ 
+
+
+  console.log('at customer')
+res.sendFile(path.join(__dirname + '/views/customer.html'))
+
+  
+})
 
 // app.use(function(err, req, res, next) {
 //   // set locals, only providing error in development
